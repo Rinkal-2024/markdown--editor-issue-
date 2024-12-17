@@ -1,0 +1,29 @@
+// @import 'bootstrap/dist/css/bootstrap.min.css';
+
+// :host ::ng-deep {
+//   @import '~bootstrap/dist/css/bootstrap.min.css';
+
+//   .editor-container {
+//     padding: 20px;
+//   }
+// }
+
+::ng-deep md-editor .text-right.length-view {
+  display: none;
+}
+
+.ripple {
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    animation:ripple 2s infinite;
+    -webkit-animation:ripple 2s infinite;
+    //background-color:hsla(0,0%,100%,.7);
+}
+
+  @keyframes ripple {
+    to {
+      transform:scale(4);
+      opacity:0
+    }
+}

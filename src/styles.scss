@@ -1,1 +1,180 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-group, .btn-group-vertical {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  .btn-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+  .ace_print-margin {
+    display: none !important;
+  }
+
+  .md-editor-container {
+    position:relative;
+    height:100%;
+    margin-bottom:15px;
+    border:1px solid rgba(0,0,0,.1)
+  }
+  .md-editor-container.fullscreen {
+    margin:0;
+    position:fixed;
+    border:0;
+    top:0;
+    left:0;
+    width:100%!important;
+    height:100%!important;
+    z-index:99999999
+  }
+  .md-editor-container.md-editor-resizable:not(.fullscreen) {
+    resize:both;
+    overflow:hidden;
+    display:inline-block;
+    width:100%
+  }
+  .md-editor-container.md-editor-resizable:not(.fullscreen)   .md-layout   .editor-container {
+    height:calc(100% - 70px)
+  }
+  .md-editor-container.md-editor-resizable:not(.fullscreen)   .md-footer {
+    z-index:-1
+  }
+  .md-editor-container   .md-layout {
+    height:100%;
+    display:flex;
+    flex-direction:column
+  }
+  .md-editor-container   .md-layout   .tool-bar {
+    background-color:#f5f5f5;
+    border-bottom:1px solid rgba(0,0,0,.1)
+  }
+  .md-editor-container   .md-layout   .tool-bar   .btn-group {
+    padding:6px
+  }
+  .md-editor-container   .md-layout   .tool-bar   .btn-group:first-child:before {
+    display:none
+  }
+  .md-editor-container   .md-layout   .tool-bar   .btn-group:before {
+    content:" ";
+    background-color:#a9a9a9;
+    width:1px;
+    height:20px;
+    left:0;
+    top:12px;
+    position:absolute
+  }
+  .md-editor-container   .md-layout   .tool-bar   .btn-group.hide-split:before {
+    display:none
+  }
+  .md-editor-container   .md-layout   .tool-bar   .btn {
+    margin-bottom:0
+  }
+  .md-editor-container   .md-layout   .editor-container {
+    flex:1;
+    display:flex;
+    height:calc(100% - 100px)
+  }
+  .md-editor-container   .md-layout   .editor-container > div {
+    flex:1
+  }
+  .md-editor-container   .md-layout   .editor-container > div   .drag-container {
+    display:none
+  }
+  .md-editor-container   .md-layout   .editor-container > div.dragover {
+    position:relative
+  }
+  .md-editor-container   .md-layout   .editor-container > div.dragover   .drag-container {
+    display:block;
+    position:absolute;
+    inset:0;
+    z-index:10;
+    background-color:#0006;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    color:#fff
+  }
+  .md-editor-container   .md-layout   .editor-container > div.dragover   .drag-container.drag-container-mask {
+    background-color:transparent;
+    z-index:11
+  }
+  .md-editor-container   .md-layout   .editor-container > div.dragover   .drag-container   .upload-loading {
+    display:flex;
+    flex-direction:column;
+    align-items:center
+  }
+  .md-editor-container   .md-layout   .editor-container > div.dragover   .drag-container   .upload-loading   .text {
+    font-size:20px;
+    margin-top:10px
+  }
+  .md-editor-container   .md-layout   .editor-container   .editor-panel {
+    height:100%
+  }
+  .md-editor-container   .md-layout   .editor-container   .editor-panel   .ace-editor {
+    height:100%;
+    min-height:100%
+  }
+  .md-editor-container   .md-layout   .preview-container {
+    overflow:auto
+  }
+  .md-editor-container   .md-layout   .preview-container   .preview-panel {
+    height:100%;
+    border-left:1px solid rgba(0,0,0,.1);
+    background-color:#fff;
+    padding:10px
+  }
+  .md-editor-container   .md-layout   .md-footer {
+    background-color:#f0f0f0;
+    border-top:1px solid rgba(0,0,0,.1);
+    display:flex;
+    align-items:center
+  }
+  .md-editor-container   .md-layout   .md-footer   .length-view {
+    flex:1;
+    padding:4px 2px 0;
+    font-size:12px;
+    line-height:16px
+  }
+  .md-editor-container   .md-layout   .md-footer   .resize-btn {
+    width:17px
+  }
+  .md-editor-container   .pull-right {
+    float:right
+  }
+  .md-editor-container   .lds-dual-ring {
+    display:inline-block;
+    width:80px;
+    height:80px
+  }
+  .md-editor-container .markdown-preview h1, .markdown-preview h2, .markdown-preview h3 {
+    font-weight: bold;
+  }
+  .md-editor-container .markdown-preview p {
+    font-size: 1rem;
+  }
+
+
+  .md-editor-container   .lds-dual-ring:after {
+    content:" ";
+    display:block;
+    width:64px;
+    height:64px;
+    margin:8px;
+    border-radius:50%;
+    border:6px solid #fff;
+    border-color:#fff transparent #fff transparent;
+    animation:lds-dual-ring 1.2s linear infinite
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform:rotate(0)
+    }
+    to {
+      transform:rotate(360deg)
+    }
+  }

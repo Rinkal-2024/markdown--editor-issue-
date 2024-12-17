@@ -1,0 +1,361 @@
+<div>
+  <div class="lg:pl-72">
+    <main class="py-10">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+          <ol role="list" class="flex items-center space-x-2">
+            <li>
+              <div class="flex items-center">
+                <a
+                  routerLink="/dashboard"
+                  class="text-sm font-medium text-gray-500 hover:text-gray-700 cursor-pointer"
+                  >{{ "HOME" | translate : lang.language }}</a
+                >
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg
+                  class="h-5 w-5 shrink-0 text-gray-300"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                </svg>
+                <a
+                  routerLink="/project"
+                  class="ml-2 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-pointer"
+                  aria-current="page"
+                  >{{ "PROJECT" | translate : lang.language }}</a
+                >
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center" *ngIf="projectname">
+                <svg
+                  class="h-5 w-5 shrink-0 text-gray-300"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                </svg>
+                <a
+                  class="ml-2 text-sm font-medium text-gray-500 hover:text-gray-700"
+                  aria-current="page"
+                >
+                  {{
+                    projectname.name.length > 15
+                      ? (projectname.name | slice : 0 : 15) + "..."
+                      : projectname.name
+                  }}
+                </a>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        <div class="sm:flex sm:items-center mb-6" *ngIf="projectname">
+          <div class="sm:flex-auto">
+            <h2 class="break-all text-3xl">{{ projectname.name }}</h2>
+          </div>
+        </div>
+
+        <div *ngIf="projectname">
+          <h2 class="text-base/7 font-semibold text-gray-900 break-words">
+            {{ projectname.description }}
+          </h2>
+        </div>
+
+        <div class="p-0">
+          <form [formGroup]="createform">
+            <div class="space-y-12">
+              <div class="pb-0">
+                <div
+                  class="mt-10 grid grid-cols-12 gap-x-6 gap-y-8 sm:grid-cols-12"
+                >
+                  <div
+                    class="sm:col-span-12 ml-0 mx-auto w-full flex justify-center"
+                  >
+                    <button
+                      class="relative group p-3 text-lg flex flex-wrap items-center justify-center"
+                      (click)="startRecording()"
+                      [disabled]="isRecording"
+                    >
+                    <span *ngIf="isRecording" class="flex items-center justify-center overflow-hidden border relative border-gray-300 rounded-full w-24 h-24 flex items-center justify-center">
+                      <img src="assets/images/podcast.gif" alt="" class="border border-gray-300 rounded-full w-full h-full object-cover">
+                      <span class="ripple h-[50px] w-[50px] bg-teal-300"></span>
+                    </span>
+                    <span *ngIf="!isRecording" class="border border-gray-300 rounded-full w-20 h-20 flex items-center justify-center">
+                      <svg
+                        fill="#000000"
+                        height="50px"
+                        width="200px"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        enable-background="new 0 0 512 512"
+                        class="mt-2"
+                      >
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></g>
+                        <g id="SVGRepo_iconCarrier">
+                          <g>
+                            <g>
+                              <path
+                                d="m439.5,236c0-11.3-9.1-20.4-20.4-20.4s-20.4,9.1-20.4,20.4c0,70-64,126.9-142.7,126.9-78.7,0-142.7-56.9-142.7-126.9 0-11.3-9.1-20.4-20.4-20.4s-20.4,9.1-20.4,20.4c0,86.2 71.5,157.4 163.1,166.7v57.5h-23.6c-11.3,0-20.4,9.1-20.4,20.4 0,11.3 9.1,20.4 20.4,20.4h88c11.3,0 20.4-9.1 20.4-20.4 0-11.3-9.1-20.4-20.4-20.4h-23.6v-57.5c91.6-9.3 163.1-80.5 163.1-166.7z"
+                              ></path>
+                              <path
+                                d="m256,323.5c51,0 92.3-41.3 92.3-92.3v-127.9c0-51-41.3-92.3-92.3-92.3s-92.3,41.3-92.3,92.3v127.9c0,51 41.3,92.3 92.3,92.3zm-52.3-220.2c0-28.8 23.5-52.3 52.3-52.3s52.3,23.5 52.3,52.3v127.9c0,28.8-23.5,52.3-52.3,52.3s-52.3-23.5-52.3-52.3v-127.9z"
+                              ></path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                    <div class="flex flex-wrap w-full items-center justify-center gap-x-3">
+                      <span *ngIf="isRecording" (click)="stopRecording()" class="relative cursor-pointer mt-6 flex items-center justify-center overflow-hidden border border-transparent rounded-md bg-black px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Stop</span>
+                      <span  *ngIf="!isRecording && !isProcessing" class="relative cursor-pointer mt-6 flex items-center justify-center overflow-hidden border border-transparent rounded-md bg-black px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+                        Start Recording
+                      </span>
+                      <span
+                         *ngIf="isProcessing" class="relative cursor-pointer mt-6 flex items-center justify-center overflow-hidden border border-transparent rounded-md bg-black px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+                          Recording is processing...
+                      </span>
+                    </div>
+                     <span
+                        class="w-full absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-800 text-white text-sm rounded py-1 px-2 z-10"
+                      >
+                        {{
+                          "Createai.BUTTON_SENTANCE" | translate : lang.language
+                        }}
+                        <span
+                          class="absolute left-1/2 transform -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"
+                        ></span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="col-span-12">
+                    <label
+                      for="about"
+                      class="block text-sm/6 font-medium text-gray-900"
+                      >{{
+                        "Createai.TRANSCRIPT" | translate : lang.language
+                      }}</label
+                    >
+                    <div class="mt-2" *ngIf="!isEditing || isEditing">
+                      <textarea
+                        [(ngModel)]="transcription"
+                        (input)="onTextInput($event)"
+                        id="description"
+                        name="description"
+                        formControlName="transcription"
+                        rows="3"
+                        [ngClass]="{
+                          'border-red-500':
+                            createform.get('transcription')!.invalid &&
+                            (createform.get('transcription')!.dirty ||
+                              createform.get('transcription')!.touched)
+                        }"
+                        class="block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                      ></textarea>
+                      <div
+                        *ngIf="
+                          createform.get('transcription')!.invalid &&
+                          (createform.get('transcription')!.dirty ||
+                            createform.get('transcription')!.touched)
+                        "
+                        class="text-red-500 text-sm mt-1"
+                      >
+                        <div
+                          *ngIf="createform.get('transcription')!.errors?.['required']"
+                        >
+                          {{
+                            "Createai.TRANSCRIPT_ERROR"
+                              | translate : lang.language
+                          }}
+                        </div>
+                        <div
+                          *ngIf="createform.get('transcription')!.errors?.['serverError']"
+                        >
+                          {{ createform.get('transcription')!.errors?.['serverError'] }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-6 flex items-center justify-end gap-x-3">
+                      <button
+                        *ngIf="transcription"
+                        type="submit"
+                        class="rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:text-white hover:bg-indigo-500"
+                        (click)="saveText()"
+                        [disabled]="isLoading"
+                      >
+                        <span *ngIf="!isLoading">{{
+                           "Createai.BTN_SEND" | translate : lang.language
+                        }}</span>
+                        <span *ngIf="isLoading" class="">
+                          <svg
+                            aria-hidden="true"
+                            class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                            viewBox="0 0 100 101"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                              fill="currentColor"
+                            ></path>
+                            <path
+                              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                              fill="currentFill"
+                            ></path>
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <label
+                      *ngIf="aires"
+                      for="about"
+                      class="block text-sm/6 font-medium text-gray-900 mt-3"
+                      >{{
+                        "Createai.AI_RESPONSE_LABEL" | translate : lang.language
+                      }}</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2" *ngIf="aires">
+
+              <!-- <md-editor
+              name="Content"
+              [(ngModel)]="aiResponse"
+              [preRender]="preRenderFunc"
+              [postRender]="postRenderFunc"
+              [height]="'300px'"
+              formControlName="airesponse"
+              (onEditorLoaded)="onEditorLoaded($event)"
+              (onPreviewDomChanged)="onPreviewDomChanged($event)"
+              required
+              maxlength="500"
+              [ngClass]="{
+                'border-red-500':
+                  createform.get('airesponse')!.invalid &&
+                  (createform.get('airesponse')!.dirty ||
+                    createform.get('airesponse')!.touched)
+              }"
+              class="block w-full"
+              >
+              </md-editor> --><md-editor name="Content"
+  [preRender]="preRenderFunc"
+  [postRender]="postRenderFunc"
+  [height]="'200px'"
+  (onEditorLoaded)="onEditorLoaded($event)"
+  (onPreviewDomChanged)="onPreviewDomChanged($event)"
+  required
+  maxlength="500">
+  <slot custom-btns></slot>
+</md-editor>
+
+              <div
+                *ngIf="
+                  createform.get('airesponse')!.invalid &&
+                  (createform.get('airesponse')!.dirty ||
+                    createform.get('airesponse')!.touched)
+                "
+                class="text-red-500 text-sm mt-1"
+              >
+                <div *ngIf="createform.get('airesponse')!.errors?.['required']">
+                  {{ "Createai.AIRESPONSE_ERROR" | translate : lang.language }}
+                </div>
+                <div
+                  *ngIf="createform.get('airesponse')!.errors?.['serverError']"
+                >
+                  {{ createform.get('airesponse')!.errors?.['serverError'] }}
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-6 flex items-center justify-end gap-x-3"
+              *ngIf="aires"
+            >
+              <button
+                type="button"
+                class="rounded-md px-3 py-2 text-sm font-semibold text-black border border-gray-300"
+                (click)="cancel()"
+              >
+                {{ "BTN_CANCEL" | translate : lang.language }}
+              </button>
+              <button
+                type="submit"
+                class="rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:text-white hover:bg-indigo-500"
+                *ngIf="!isEditing"
+                (click)="saveapi()"
+                [disabled]="isLoadingSaveData"
+              >
+                <span *ngIf="!isLoadingSaveData">{{
+                  "Createai.SAVE" | translate : lang.language
+                }}</span>
+                <span *ngIf="isLoadingSaveData" class="">
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                    viewBox="0 0 100 101"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="currentColor"
+                    ></path>
+                    <path
+                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="currentFill"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+              <button
+                type="submit"
+                class="rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:text-white hover:bg-indigo-500"
+                *ngIf="isEditing"
+                (click)="update(aiResponse)"
+                [disabled]="isLoadingSaveData"
+              >
+                <span *ngIf="!isLoadingSaveData">{{
+                  "Createai.UPDATE" | translate : lang.language
+                }}</span>
+                <span *ngIf="isLoadingSaveData" class="">
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                    viewBox="0 0 100 101"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="currentColor"
+                    ></path>
+                    <path
+                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="currentFill"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+            <div class="mt-6">
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+

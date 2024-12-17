@@ -1,6 +1,10 @@
-# Markdown
+# DIFM Agent
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+
+## Enviremoment Setup
+
+Please change the environment variables `apiUrl` to ({difm-backend_running_url}/api/v1) and `serverurl` to ({difm-backend_running_url}) of difm-backend in files src/environments/environment.ts and src/environments/environment.prod.ts
 
 ## Development server
 
