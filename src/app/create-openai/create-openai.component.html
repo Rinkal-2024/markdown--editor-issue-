@@ -156,12 +156,6 @@
                         name="description"
                         formControlName="transcription"
                         rows="3"
-                        [ngClass]="{
-                          'border-red-500':
-                            createform.get('transcription')!.invalid &&
-                            (createform.get('transcription')!.dirty ||
-                              createform.get('transcription')!.touched)
-                        }"
                         class="block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                       ></textarea>
                       <div
@@ -172,19 +166,19 @@
                         "
                         class="text-red-500 text-sm mt-1"
                       >
-                        <div
+                        <!-- <div
                           *ngIf="createform.get('transcription')!.errors?.['required']"
                         >
                           {{
                             "Createai.TRANSCRIPT_ERROR"
                               | translate : lang.language
                           }}
-                        </div>
-                        <div
+                        </div> -->
+                        <!-- <div
                           *ngIf="createform.get('transcription')!.errors?.['serverError']"
                         >
                           {{ createform.get('transcription')!.errors?.['serverError'] }}
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                     <div class="mt-6 flex items-center justify-end gap-x-3">
@@ -230,9 +224,8 @@
                 </div>
               </div>
             </div>
-            <div class="mt-2" *ngIf="aires">
-
-              <!-- <md-editor
+            <div class="mt-2 md-editor-text-wrapper" *ngIf="aires">
+              <md-editor
               name="Content"
               [(ngModel)]="aiResponse"
               [preRender]="preRenderFunc"
@@ -242,7 +235,6 @@
               (onEditorLoaded)="onEditorLoaded($event)"
               (onPreviewDomChanged)="onPreviewDomChanged($event)"
               required
-              maxlength="500"
               [ngClass]="{
                 'border-red-500':
                   createform.get('airesponse')!.invalid &&
@@ -251,17 +243,7 @@
               }"
               class="block w-full"
               >
-              </md-editor> --><md-editor name="Content"
-  [preRender]="preRenderFunc"
-  [postRender]="postRenderFunc"
-  [height]="'200px'"
-  (onEditorLoaded)="onEditorLoaded($event)"
-  (onPreviewDomChanged)="onPreviewDomChanged($event)"
-  required
-  maxlength="500">
-  <slot custom-btns></slot>
-</md-editor>
-
+              </md-editor>
               <div
                 *ngIf="
                   createform.get('airesponse')!.invalid &&
@@ -351,6 +333,9 @@
               </button>
             </div>
             <div class="mt-6">
+              <app-ai-interactions></app-ai-interactions>
+
+              <!-- <app-ai-interactions></app-ai-interactions> -->
             </div>
           </form>
         </div>

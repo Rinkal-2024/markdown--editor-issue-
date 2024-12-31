@@ -21,6 +21,7 @@ import { debounceTime, Subject, Subscription } from 'rxjs';
 import { L10nLocale, L10N_LOCALE, L10nTranslationModule } from 'angular-l10n';
 import { ToastrService } from 'ngx-toastr';
 import { marked } from 'marked';
+import { SharedModule } from "../shared.module";
 
 @Component({
   selector: 'app-create-openai',
@@ -32,7 +33,8 @@ import { marked } from 'marked';
     L10nTranslationModule,
     ReactiveFormsModule,
     LMarkdownEditorModule,
-  ],
+    SharedModule
+],
   templateUrl: './create-openai.component.html',
   styleUrl: './create-openai.component.scss',
 })

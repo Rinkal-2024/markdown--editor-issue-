@@ -1,0 +1,170 @@
+<div class="overflow-x-auto overflow-y-hidden">
+  <label class="text-gray-600 justify-center items-center mb-4 block text-center">
+    <!-- {{
+    "Aiinteractions.AI_INTERACTIONS_HEADING" | translate : lang.language
+    }} -->
+    Ai-interaction
+    </label>
+  <table class="min-w-full bg-white shadow-md rounded-lg">
+    <thead class="bg-gray-100 text-gray-600">
+      <tr>
+        <th class="px-4 py-2 text-left cursor-pointer">
+          <!-- <span>{{ "Aiinteractions.ID" | translate : lang.language }}</span> -->
+        </th>
+        <th *ngIf="!isMeeting" class="px-4 py-2 text-left cursor-pointer">
+          <span>Template ID</span>
+        </th>
+        <th class="px-4 py-2 text-left cursor-pointer">
+          TRANSCRIPT
+          <!-- {{ "Aiinteractions.TRANSCRIPT" | translate : lang.language }} -->
+        </th>
+        <th class="px-4 py-2 text-left cursor-pointer">
+          Ai-Response
+          <!-- {{ "Aiinteractions.AI_RESPONSE_HEADING" | translate : lang.language }} -->
+        </th>
+        <th class="px-4 py-2 text-left cursor-pointer" (click)="onSortClick('created_at')">
+          <!-- {{ "Aiinteractions.CREATED_AT_LABEL" | translate : lang.language }} -->
+            created_at
+          <span [ngClass]="{
+              'text-gray-400': sortBy !== 'created_at',
+              'text-gray-900': sortBy === 'created_at'
+            }">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor"
+              *ngIf="sortBy !== 'created_at'" class="h-4 w-4 inline-block ml-2">
+              <path
+                d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8L32 224c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8l256 0c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z" />
+            </svg>
+
+            <svg *ngIf="sortBy === 'created_at' && sortDir === 'asc'" class="h-4 w-4 inline-block ml-2 up"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+              <path
+                d="M182.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8l256 0c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z" />
+            </svg>
+
+            <svg *ngIf="sortBy === 'created_at' && sortDir === 'desc'" class="h-4 w-4 inline-block ml-2 down"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+              <path
+                d="M182.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8l256 0c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128z" />
+            </svg>
+          </span>
+        </th>
+        <th class="px-4 py-2 text-left" *ngIf="isHideRow">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="data.length > 0; else noDataTemplate">
+        <tr *ngFor="let dataresponse of data; let i = index" class="border-t hover:bg-gray-50">
+          <td class="px-4 py-2">
+            {{
+            (paginationMeta.current_page - 1) * paginationMeta.per_page +
+            (i + 1)
+            }}
+          </td>
+          <img *ngIf="!isMeeting" class="px-4 py-2 h-42 w-42 object-contain" [src]="dataresponse?.template?.image ? dataresponse.template.image : 'assets/images/image-0.jpg'" />
+          <td class="px-4 py-2">{{ dataresponse?.transcript }}</td>
+          <td class="px-4 py-2">
+            <p class="w-full max-w-xl break-words">
+              {{dataresponse?.ai_response}}
+            </p>
+          </td>
+          <td class="px-4 py-2">{{ dataresponse.created_at }}</td>
+          <td class="px-4 py-2 relative" *ngIf="isHideRow">
+            <div>
+              <!-- <app-action-dropdown [row]="dataresponse" [index]="i" [dropdownOpen]="dropdownIndex === i"
+                (toggleDropdown)="toggleDropdown(i)">
+                <ul class="text-gray-800">
+                  <li>
+                    <button (click)="edittxst(dataresponse, i)"
+                      class="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100">
+                      {{
+                      "Aiinteractions.BTN_EDIT" | translate : lang.language
+                      }}
+                    </button>
+                  </li>
+                  <li>
+                    <button (click)="deleteai(dataresponse, i)"
+                      class="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100">
+                      {{
+                      "Aiinteractions.BTN_DELETE" | translate : lang.language
+                      }}
+                    </button>
+                  </li>
+                </ul>
+              </app-action-dropdown> -->
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noDataTemplate>
+        <tr>
+          <td colspan="6" class="px-4 py-2 text-center text-gray-500">
+            <!-- {{
+            "Aiinteractions.NO_DATA_AVAILABLE_LABEL"
+            | translate : lang.language
+            }}
+          </td> -->
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+  <div *ngIf="data.length > 0">
+    <div class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 my-10"
+      *ngIf="paginationMeta && paginationMeta.current_page">
+      <div class="-mt-px flex w-0 flex-1">
+        <button (click)="prevPage()" [disabled]="paginationMeta.current_page === 1"
+          class="flex items-center cursor-pointer border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg class="mr-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+            data-slot="icon">
+            <path fill-rule="evenodd"
+              d="M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10Z"
+              clip-rule="evenodd" />
+          </svg>
+          <!-- {{ "PREVIOUS" | translate : lang.language }} -->
+        </button>
+      </div>
+      <div class="md:-mt-1 md:flex items-center justify-center">
+        <button *ngFor="let page of getPageNumbers()" [ngClass]="{
+            'rounded-none border-indigo-500 text-indigo-600':
+              page === paginationMeta.current_page,
+            'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700':
+              page !== paginationMeta.current_page
+          }" (click)="goToPage(page)"
+          class="rounded-none inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium cursor-pointer">
+          {{ page }}
+        </button>
+      </div>
+      <div class="-mt-px flex w-0 flex-1 justify-end">
+        <button (click)="nextPage()" [disabled]="paginationMeta.current_page === paginationMeta.last_page"
+          class="flex items-center cursor-pointer border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+          <!-- {{ "NEXT" | translate : lang.language }} -->
+          <svg class="ml-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+            data-slot="icon">
+            <path fill-rule="evenodd"
+              d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <app-custom-popup [show]="showModal" [message]="modalMessage" [title]="modalTitle" (close)="onModalClose($event)">
+  <div class="sm:flex sm:items-start">
+    <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
+      <svg class="size-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        aria-hidden="true" data-slot="icon">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+      </svg>
+    </div>
+    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+      <h3 class="text-base font-semibold text-gray-900" id="modal-title">
+        {{ modalTitle }}
+      </h3>
+      <div class="mt-2">
+        <p class="text-sm text-gray-500">{{ modalMessage }}</p>
+      </div>
+    </div>
+  </div>
+</app-custom-popup> -->
